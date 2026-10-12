@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="motion_lab_category">Motion Lab • Experimental</string>
+    <string name="motion_lab_overview">Practice gestures with guided lessons and immediate radar feedback.</string>
+    <string name="motion_lab_preview_demo">Illustration of a temporary glow preview ending automatically.</string>
+    <string name="motion_lab_back">Back to Motion Sense</string>
+    <string name="motion_lab_studio">Glow Theme Studio</string>
+    <string name="motion_lab_studio_intro">Choose a glow style and animation speed. Apply saves your draft; Preview tries it for eight seconds.</string>
+    <string name="motion_lab_training">Gesture Training Room</string>
+    <string name="motion_lab_training_intro">Practice one gesture at a time with immediate radar feedback.</string>
+    <string name="motion_lab_waiting">Connecting to Motion Sense…</string>
+    <string name="motion_lab_ready">Radar connected. Ready for your gesture.</string>
+    <string name="motion_lab_unavailable">Turn on Motion Sense. Radar also needs an allowed region, Airplane mode off and Battery Saver off.</string>
+    <string name="motion_lab_left">Swipe left</string>
+    <string name="motion_lab_right">Swipe right</string>
+    <string name="motion_lab_tap">Air tap</string>
+    <string name="motion_lab_reach">Reach toward the phone</string>
+    <string name="motion_lab_training_help">Keep the phone still and your hand above the top edge. Follow the prompt. Detector confidence is shown when Oslo provides it.</string>
+    <string name="motion_lab_lesson_reach">1 of 4 • Reach toward the phone</string>
+    <string name="motion_lab_lesson_left">2 of 4 • Swipe left above the phone</string>
+    <string name="motion_lab_lesson_right">3 of 4 • Swipe right above the phone</string>
+    <string name="motion_lab_lesson_tap">4 of 4 • Make an air tap</string>
+    <string name="motion_lab_lesson_done">All four gestures complete!</string>
+    <string name="motion_lab_practice_again">Practice again</string>
+    <string name="motion_lab_match">Matched! Move to the next gesture.</string>
+    <string name="motion_lab_try_prompt">Detected. Try the gesture in the prompt.</string>
+    <string name="motion_lab_training_feedback">%1$s • confidence %2$d%% • %3$s</string>
+    <string name="motion_lab_training_feedback_no_confidence">%1$s • %2$s</string>
+    <string name="motion_lab_speed_label">Animation speed</string>
+    <string name="motion_lab_speed">Animation speed • %1$d%%</string>
+    <string name="motion_lab_trails">Gesture Trails</string>
+    <string name="motion_lab_trails_intro">Show a fading directional trail after a detected swipe. Trails represent detected gestures, not continuous hand tracking.</string>
+    <string name="motion_lab_draft">Draft • changes are saved with Apply</string>
+    <string name="motion_lab_preview">Preview glow • 8 seconds</string>
+    <string name="motion_lab_stop_preview">Stop preview</string>
+    <string name="motion_lab_apply">Apply glow settings</string>
+    <string name="motion_lab_preview_active">Preview active for eight seconds. Saved settings are unchanged.</string>
+    <string name="motion_lab_preview_ended">Preview ended. Saved glow restored.</string>
+    <string name="motion_lab_saved">Glow settings saved.</string>
+    <string name="motion_lab_save_failed">Could not save glow settings.</string>
+    <string name="motion_lab_local_preview">Draft animation preview</string>
+    <string-array name="motion_lab_styles">
+        <item>Stock</item>
+        <item>Neon</item>
+        <item>Aurora</item>
+        <item>Pixel</item>
+        <item>Minimal</item>
+    </string-array>
+</resources>

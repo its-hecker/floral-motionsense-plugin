@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: 2026 its-hecker
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Settings entry -->
+    <string name="motion_sense_title">Motion Sense</string>
+    <string name="motion_sense_summary">Quick Gestures and reach to check phone</string>
+
+    <!-- Main switch -->
+    <string name="motion_sense_intro">Your phone uses a radar sensor to recognise distance and movement around it</string>
+    <string name="motion_sense_use">Use Motion Sense</string>
+    <string name="motion_sense_off_dialog_title">Turn off Motion Sense?</string>
+    <string name="motion_sense_off_dialog_message">If you turn off Motion Sense, you can\'t use Quick Gestures, show display when nearby and reach to check phone</string>
+    <string name="motion_sense_off_dialog_confirm">Turn off</string>
+
+    <!-- Quick Gestures -->
+    <string name="motion_sense_category_gestures">Quick Gestures</string>
+    <string name="motion_sense_skip_title">Skip songs</string>
+    <string name="motion_sense_skip_summary">Swipe your hand above the phone to skip to the next or previous song</string>
+    <string name="motion_sense_skip_direction_title">Swipe direction</string>
+    <string name="motion_sense_skip_direction_rtl">Swipe right to left for next song</string>
+    <string name="motion_sense_skip_direction_ltr">Swipe left to right for next song</string>
+    <string name="motion_sense_silence_title">Silence interruptions</string>
+    <string name="motion_sense_silence_summary">Swipe your hand above the phone to snooze alarms, dismiss timers and silence calls</string>
+    <string name="motion_sense_tap_title">Pause music</string>
+    <string name="motion_sense_tap_summary">Tap the air above the phone to pause or resume music</string>
+
+    <!-- Display -->
+    <string name="motion_sense_category_display">Ambient display</string>
+    <string name="motion_sense_idle_title">Idle lock screen</string>
+    <string name="motion_sense_idle_nearby">On when you\'re nearby</string>
+    <string name="motion_sense_idle_always">Always show time and info</string>
+    <string name="motion_sense_idle_off">Off</string>
+    <string name="motion_sense_reach_title">Reach to check phone</string>
+    <string name="motion_sense_reach_summary">To check time, notifications and other info, reach for your phone</string>
+
+    <!-- Security -->
+    <string name="motion_sense_category_security">Device security</string>
+    <string name="motion_sense_lock_title">Auto-lock when nobody\'s around</string>
+    <string name="motion_sense_lock_summary">Lock the phone soon after you walk away from it</string>
+
+    <!-- Extras (read by OsloFeedback) -->
+    <string name="motion_sense_category_extras">More options</string>
+    <string name="motion_sense_any_media_app_title">Control any media app</string>
+    <string name="motion_sense_any_media_app_summary">Skip and pause work in every app that plays media. When off, they work only in the apps on the media app list</string>
+    <string name="motion_sense_ignore_videos_title">Ignore videos</string>
+    <string name="motion_sense_ignore_videos_summary">Don\'t skip or pause videos in apps that aren\'t on the media app list, like YouTube</string>
+
+    <!-- Media app list -->
+    <string name="motion_sense_media_apps_title">Media apps</string>
+    <plurals name="motion_sense_media_apps_summary">
+        <item quantity="one"><xliff:g id="count" example="1">%d</xliff:g> app on the list</item>
+        <item quantity="other"><xliff:g id="count" example="12">%d</xliff:g> apps on the list</item>
+    </plurals>
+    <string name="motion_sense_media_apps_intro">Quick Gestures always control the apps on this list, including their videos. Other apps are controlled only when Control any media app is on.</string>
+    <string name="motion_sense_media_apps_listed">On the list</string>
+    <string name="motion_sense_media_apps_other">Other apps</string>
+    <string name="motion_sense_media_apps_loading">Loading apps…</string>
+    <string name="motion_sense_media_apps_no_match">No apps match your search</string>
+    <string name="motion_sense_media_apps_search">Search apps</string>
+    <string name="motion_sense_media_apps_reset">Reset to Google\'s list</string>
+    <string name="motion_sense_glow_page_title">Glow light</string>
+    <string name="motion_sense_glow_page_summary">Brightness, size, color modes and Glow Theme Studio</string>
+    <string name="motion_sense_glow_show_title">Show glow light</string>
+    <string name="motion_sense_glow_brightness_title">Brightness</string>
+    <string name="motion_sense_glow_size_title">Size</string>
+    <string name="motion_sense_glow_rainbow_title">Rainbow</string>
+    <string name="motion_sense_glow_rainbow_summary">Use a different color each time the light appears</string>
+    <string name="motion_sense_glow_accent_title">Match system accent</string>
+    <string name="motion_sense_glow_accent_summary">Use your Material You wallpaper color for the glow</string>
+    <string name="motion_sense_glow_footer">The glow is the light that sweeps across the top of the screen when Motion Sense sees a gesture. A new look shows the next time it appears.</string>
+    <string name="motion_sense_tile_label">Motion Sense</string>
+
+    <string name="motion_sense_air_dj_title">Air DJ</string>
+    <string name="motion_sense_air_dj_summary">Air tap cycles Track → Volume → Seek while music plays. Swipes skip tracks, change volume or seek 10 seconds, following your skip direction. Blue, green and orange glow show the mode. Enables Skip songs and Pause music; air tap switches modes instead of pausing.</string>
+    <string name="motion_sense_air_dj_mode_title">Air DJ mode</string>
+
+    <!-- About -->
+    <string name="motion_sense_about">About</string>
+    <string name="motion_sense_about_port">Original Motion Sense port by Dirty Unicorns and Aswin</string>
+    <string name="motion_sense_about_port_summary">Ported for Android 17 (Polished &amp; Additional features added by Hecker)</string>
+    <string name="motion_sense_about_contact">Contact developer</string>
+    <string name="motion_sense_about_contact_summary">Telegram: t.me/pixel4seriesupdates</string>
+    <string name="motion_sense_donate">Buy me a coffee ☕</string>
+    <string name="motion_sense_about_binance">Binance ID</string>
+    <string name="motion_sense_about_usdt">USDT (TRC20)</string>
+    <string name="motion_sense_binance_id" translatable="false">1063984390</string>
+    <string name="motion_sense_usdt_trc20" translatable="false">TBMDKXt39ZdkHmeMZcf2afXnRtAutX2siD</string>
+    <string name="motion_sense_copied">Copied</string>
+
+    <!-- Footer -->
+    <string name="motion_sense_footer">Motion Sense detects nearby movement. It does not use your camera, mic or location.</string>
+    <string name="motion_sense_unavailable_airplane">Motion Sense is unavailable because airplane mode is on</string>
+    <string name="motion_sense_unavailable_saver">Motion Sense is unavailable because Battery Saver is on</string>
+    <string name="motion_sense_unavailable_airplane_saver">Motion Sense is unavailable because airplane mode and Battery Saver are on</string>
+    <string name="motion_sense_turn_on_first">To use this, turn on Motion Sense</string>
+    <string name="motion_sense_not_allowed">Motion Sense is not supported in this country</string>
+</resources>

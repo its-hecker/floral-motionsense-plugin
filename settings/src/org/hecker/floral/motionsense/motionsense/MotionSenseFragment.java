@@ -1,0 +1,309 @@
+/*
+ * SPDX-FileCopyrightText: 2026 its-hecker
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+package org.hecker.floral.motionsense.motionsense;
+
+import android.app.AlertDialog;
+import android.app.KeyguardManager;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.Intent;
+import android.database.ContentObserver;
+import android.hardware.display.AmbientDisplayConfiguration;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.UserHandle;
+import android.provider.DeviceConfig;
+import android.widget.Toast;
+
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
+import androidx.preference.SwitchPreferenceCompat;
+
+import com.android.settingslib.PrimarySwitchPreference;
+import com.android.settingslib.widget.FooterPreference;
+import com.android.settingslib.widget.IllustrationPreference;
+import com.android.settingslib.widget.MainSwitchPreference;
+import com.android.settingslib.widget.SettingsBasePreferenceFragment;
+
+import org.hecker.floral.motionsense.R;
+
+import static org.hecker.floral.motionsense.motionsense.MotionSense.*;
+
+/**
+ * Motion Sense settings, shown in Settings > System through tile injection, so the
+ * ROM's Settings app needs no changes. Every option is a Settings.Secure value that
+ * OsloFeedback (com.google.oslo) or SystemUI reads.
+ */
+public class MotionSenseFragment extends SettingsBasePreferenceFragment
+        implements Preference.OnPreferenceChangeListener {
+
+    private static final String PREF_ILLUSTRATION = "motion_sense_illustration";
+    private static final String PREF_IDLE = "idle_lock_screen";
+    private static final String PREF_FOOTER = "motion_sense_footer";
+    private static final String PREF_CATEGORY_GESTURES = "category_gestures";
+    private static final String PREF_CATEGORY_SECURITY = "category_security";
+
+    private static final String IDLE_NEARBY = "nearby";
+    private static final String IDLE_ALWAYS = "always";
+    private static final String IDLE_OFF = "off";
+
+    /** Rows that open a gesture page and have their own switch. */
+    private static final String[] GESTURE_KEYS = {KEY_SKIP, KEY_SILENCE, KEY_TAP, KEY_WAKE_SCREEN};
+
+    private AmbientDisplayConfiguration mAmbientConfig;
+    private final int mUserId = UserHandle.myUserId();
+
+    private MotionSense.Illustration mIllustration;
+    private MotionSense.Illustration mAirDjIllustration;
+    private MotionSense.Illustration mLabIllustration;
+    private MainSwitchPreference mMainSwitch;
+    private ListPreference mIdleLockScreen;
+    private SwitchPreferenceCompat mLock;
+    private SwitchPreferenceCompat mAirDj;
+    private ListPreference mAirDjMode;
+    private SwitchPreferenceCompat mAnyMediaApp;
+    private Preference mMediaApps;
+    private SwitchPreferenceCompat mIgnoreVideos;
+    private FooterPreference mFooter;
+    private PreferenceCategory mSecurityCategory;
+
+    private final ContentObserver mObserver = new ContentObserver(
+            new Handler(Looper.getMainLooper())) {
+        @Override
+        public void onChange(boolean selfChange, Uri uri) {
+            updateState();
+        }
+    };
+
+    @Override
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        setPreferencesFromResource(R.xml.motion_sense_settings, rootKey);
+
+        Context context = requireContext();
+        mAmbientConfig = new AmbientDisplayConfiguration(context);
+
+        IllustrationPreference illustration = findPreference(PREF_ILLUSTRATION);
+        mIllustration = MotionSense.setUpIllustration(context, illustration,
+                R.raw.motion_sense_main, R.string.motion_sense_title);
+        mAirDjIllustration = MotionSense.setUpIllustration(context, findPreference("air_dj_illustration"),
+                R.raw.motion_lab_air_dj, R.string.motion_sense_air_dj_summary);
+        mLabIllustration = MotionSense.setUpIllustration(context, findPreference("motion_lab_illustration"),
+                R.raw.motion_lab_overview, R.string.motion_lab_overview);
+
+        mMainSwitch = findPreference(KEY_ENABLED);
+        mIdleLockScreen = findPreference(PREF_IDLE);
+        mLock = findPreference(KEY_LOCK);
+        mAirDj = findPreference(KEY_AIR_DJ);
+        mAirDjMode = findPreference(KEY_AIR_DJ_MODE);
+        mAnyMediaApp = findPreference(KEY_ANY_MEDIA_APP);
+        mMediaApps = findPreference(KEY_MEDIA_APPS);
+        mIgnoreVideos = findPreference(KEY_IGNORE_VIDEOS);
+        mFooter = findPreference(PREF_FOOTER);
+        mSecurityCategory = findPreference(PREF_CATEGORY_SECURITY);
+
+        for (Preference preference : new Preference[] {mMainSwitch, mIdleLockScreen, mLock,
+                mAirDj, mAirDjMode, mAnyMediaApp, mIgnoreVideos}) {
+            preference.setOnPreferenceChangeListener(this);
+        }
+        findPreference("glow_page").setIntent(new Intent(context, GlowActivity.class));
+        findPreference("motion_lab_training").setIntent(new Intent(context,
+                org.hecker.floral.motionsense.motionsense.lab.TrainingActivity.class));
+
+        for (String key : GESTURE_KEYS) {
+            Preference row = findPreference(key);
+            row.setOnPreferenceChangeListener(this);
+            row.setIntent(new Intent(context, GestureActivity.class)
+                    .putExtra(GestureActivity.EXTRA_GESTURE, key));
+        }
+        mMediaApps.setIntent(new Intent(context, MediaAppsActivity.class));
+
+        // About: tap a donation address to copy it
+        findPreference("about_binance").setOnPreferenceClickListener(p -> {
+            copy(getString(R.string.motion_sense_binance_id));
+            return true;
+        });
+        findPreference("about_usdt").setOnPreferenceClickListener(p -> {
+            copy(getString(R.string.motion_sense_usdt_trc20));
+            return true;
+        });
+
+        // Pixel hides "Pause music" when Google turns tap off for a device.
+        if (!DeviceConfig.getBoolean("oslo", "enable_tap", true)) {
+            PreferenceCategory gestures = findPreference(PREF_CATEGORY_GESTURES);
+            gestures.removePreference(findPreference(KEY_TAP));
+        }
+
+        // There is no always-on display option on devices without it.
+        if (!mAmbientConfig.alwaysOnAvailableForUser(mUserId)) {
+            mIdleLockScreen.setEntries(new CharSequence[] {
+                    getString(R.string.motion_sense_idle_nearby),
+                    getString(R.string.motion_sense_idle_off)});
+            mIdleLockScreen.setEntryValues(new CharSequence[] {IDLE_NEARBY, IDLE_OFF});
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MotionSense.registerObserver(requireContext().getContentResolver(), mObserver);
+        updateState();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        requireContext().getContentResolver().unregisterContentObserver(mObserver);
+    }
+
+    private void updateState() {
+        Context context = getContext();
+        if (context == null) {
+            return;
+        }
+        final boolean available = isAvailable(context);
+        final boolean enabled = isOn(context, KEY_ENABLED);
+        final boolean configurable = available && enabled;
+
+        mMainSwitch.setChecked(enabled);
+        mMainSwitch.setEnabled(available);
+
+        for (String key : GESTURE_KEYS) {
+            PrimarySwitchPreference row = findPreference(key);
+            if (row != null) {
+                row.setChecked(isOn(context, key));
+                row.setSwitchEnabled(configurable);
+            }
+        }
+
+        // Same logic as Pixel's "Idle lock screen" picker.
+        boolean alwaysOn = mAmbientConfig.alwaysOnEnabled(mUserId);
+        boolean wakeDisplay = mAmbientConfig.wakeDisplayGestureEnabled(mUserId);
+        String idle = (wakeDisplay && configurable && alwaysOn) ? IDLE_NEARBY
+                : alwaysOn ? IDLE_ALWAYS : IDLE_OFF;
+        mIdleLockScreen.setValue(idle);
+        mIdleLockScreen.setSummary(mIdleLockScreen.getEntry());
+
+        // Auto-lock only makes sense with a PIN, pattern or password.
+        KeyguardManager keyguard = context.getSystemService(KeyguardManager.class);
+        mSecurityCategory.setVisible(keyguard != null && keyguard.isDeviceSecure());
+        mLock.setChecked(isOn(context, KEY_LOCK));
+        mLock.setEnabled(configurable);
+
+        mAirDj.setChecked(isOn(context, KEY_AIR_DJ));
+        mAirDj.setEnabled(configurable && DeviceConfig.getBoolean("oslo", "enable_tap", true));
+        int airDjMode = get(context, KEY_AIR_DJ_MODE);
+        mAirDjMode.setValue(Integer.toString(airDjMode >= 0 && airDjMode <= 2 ? airDjMode : 0));
+        mAirDjMode.setEnabled(configurable && mAirDj.isChecked());
+        mAirDjMode.setSummary(mAirDjMode.getEntry());
+
+        // Extras, read by OsloFeedback
+        mAnyMediaApp.setChecked(isOn(context, KEY_ANY_MEDIA_APP));
+        int listed = MediaApps.countInstalled(context);
+        mMediaApps.setSummary(getResources().getQuantityString(
+                R.plurals.motion_sense_media_apps_summary, listed, listed));
+        mIgnoreVideos.setChecked(isOn(context, KEY_IGNORE_VIDEOS));
+        mIgnoreVideos.setEnabled(mAnyMediaApp.isChecked());
+
+        int reason = getUnavailableReason(context);
+        mFooter.setTitle(reason != 0 ? reason : R.string.motion_sense_footer);
+
+        mIllustration.updateGlow();
+        mAirDjIllustration.updateGlow();
+        mLabIllustration.updateGlow();
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        final Context context = requireContext();
+        final String key = preference.getKey();
+        switch (key) {
+            case KEY_ENABLED:
+                if ((Boolean) newValue) {
+                    put(context, KEY_ENABLED, 1);
+                    restoreFeatures(context);
+                    updateState();
+                    return true;
+                }
+                confirmTurnOff();
+                return false;
+            case KEY_AIR_DJ:
+                boolean airDjOn = (Boolean) newValue;
+                if (airDjOn) {
+                    // Air tap selects the mode; flick controls it. Both detectors are required.
+                    put(context, KEY_SKIP, 1);
+                    put(context, KEY_TAP, 1);
+                    rememberFeature(context, KEY_SKIP, true);
+                    rememberFeature(context, KEY_TAP, true);
+                    put(context, KEY_AIR_DJ_MODE, 0);
+                }
+                put(context, KEY_AIR_DJ, airDjOn ? 1 : 0);
+                break;
+            case KEY_AIR_DJ_MODE:
+                try {
+                    int mode = Integer.parseInt((String) newValue);
+                    if (mode < 0 || mode > 2) return false;
+                    put(context, key, mode);
+                } catch (NumberFormatException e) {
+                    return false;
+                }
+                break;
+            case KEY_GLOW_HUE:
+                try {
+                    put(context, key, Integer.parseInt((String) newValue));
+                } catch (NumberFormatException e) {
+                    return false;
+                }
+                break;
+            case PREF_IDLE:
+                setIdleLockScreen((String) newValue);
+                break;
+            default:
+                boolean on = (Boolean) newValue;
+                put(context, key, on ? 1 : 0);
+                rememberFeature(context, key, on);
+                if (!on && (KEY_SKIP.equals(key) || KEY_TAP.equals(key))) {
+                    put(context, KEY_AIR_DJ, 0);
+                }
+                break;
+        }
+        updateState();
+        return true;
+    }
+
+    private void copy(String text) {
+        ClipboardManager clipboard = requireContext().getSystemService(ClipboardManager.class);
+        if (clipboard != null) {
+            clipboard.setPrimaryClip(ClipData.newPlainText(text, text));
+            Toast.makeText(requireContext(), R.string.motion_sense_copied, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void confirmTurnOff() {
+        new AlertDialog.Builder(requireContext())
+                .setTitle(R.string.motion_sense_off_dialog_title)
+                .setMessage(R.string.motion_sense_off_dialog_message)
+                .setPositiveButton(R.string.motion_sense_off_dialog_confirm, (dialog, which) -> {
+                    put(requireContext(), KEY_ENABLED, 0);
+                    updateState();
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
+    }
+
+    private void setIdleLockScreen(String value) {
+        Context context = requireContext();
+        boolean alwaysOn = !IDLE_OFF.equals(value);
+        boolean wakeDisplay = IDLE_NEARBY.equals(value);
+        put(context, KEY_ALWAYS_ON, alwaysOn ? 1 : 0);
+        put(context, KEY_WAKE_DISPLAY, wakeDisplay ? 1 : 0);
+        rememberFeature(context, KEY_ALWAYS_ON, alwaysOn);
+        rememberFeature(context, KEY_WAKE_DISPLAY, wakeDisplay);
+    }
+}

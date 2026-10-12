@@ -1,0 +1,52 @@
+// SPDX-License-Identifier: Apache-2.0
+package {
+    default_applicable_licenses: ["floral_motionsense_license"],
+}
+
+license {
+    name: "floral_motionsense_license",
+    visibility: ["//visibility:public"],
+    license_kinds: ["SPDX-license-identifier-Apache-2.0", "legacy_by_exception_only"],
+    license_text: ["LICENSE", "NOTICE"],
+}
+
+soong_namespace {}
+
+android_app_import {
+    name: "FloralOsloFeedback",
+    owner: "google",
+    apk: "proprietary/system_ext/priv-app/OsloFeedback/OsloFeedback.apk",
+    certificate: "platform",
+    privileged: true,
+    system_ext_specific: true,
+    overrides: ["OsloFeedback"],
+    dex_preopt: { enabled: false },
+}
+
+android_app_import {
+    name: "FloralMotionSenseBridge",
+    owner: "google",
+    apk: "proprietary/product/app/MotionSenseBridge/MotionSenseBridge.apk",
+    certificate: "platform",
+    product_specific: true,
+    overrides: ["MotionSenseBridgePrebuilt", "MotionSenseBridge"],
+    dex_preopt: { enabled: false },
+}
+
+runtime_resource_overlay {
+    name: "FloralOsloSystemUIOverlay",
+    manifest: "overlay/AndroidManifest.xml",
+    resource_dirs: ["overlay/res"],
+    sdk_version: "current",
+    certificate: "platform",
+    system_ext_specific: true,
+}
+
+runtime_resource_overlay {
+    name: "FloralOsloFrameworkOverlay",
+    manifest: "configs/framework-overlay.xml",
+    resource_dirs: ["configs/framework-res"],
+    sdk_version: "current",
+    certificate: "platform",
+    system_ext_specific: true,
+}

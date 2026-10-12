@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "artifacts": [
+    {
+      "repository": "its-hecker/infinity_cnb_proprietary_vendor_google_coral",
+      "revision": "211e454a5809b98fb85e883ace545fbdb9ba939d",
+      "path": "proprietary/system_ext/priv-app/OsloFeedback/OsloFeedback.apk",
+      "destination": "proprietary/system_ext/priv-app/OsloFeedback/OsloFeedback.apk",
+      "sha256": "5f6c2e0c908e4d726eb62543c8d7f8492ade99b1d9043baa415873093598ac54",
+      "size": 13251001,
+      "git_blob": "143d4a577f218154253a0a50f17efd3ae2a5c896"
+    },
+    {
+      "repository": "its-hecker/infinity_cnb_proprietary_vendor_google_coral",
+      "revision": "211e454a5809b98fb85e883ace545fbdb9ba939d",
+      "path": "proprietary/product/app/MotionSenseBridge/MotionSenseBridge.apk",
+      "destination": "proprietary/product/app/MotionSenseBridge/MotionSenseBridge.apk",
+      "sha256": "ba8a654db0ae508f923c0ab130771ef9fb3a1d8ad788738abbc6afd50099b6b1",
+      "size": 89774,
+      "git_blob": "1e3825c58ec3b8e054b3cc733198f6b4a40e8724"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: 2013-2016 The CyanogenMod Project
+     SPDX-FileCopyrightText: The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="device_settings_app_name">Papildu iestatījumi</string>
+    <string name="screen_gestures_panel_title">Žesti</string>
+    <string name="ambient_display_title">Aptverošais displejs</string>
+    <string name="ambient_display_enable_summary">Saņemot ziņojumus, ieslēgt ekrānu</string>
+    <string name="hand_wave_gesture_title">Mājiens ar roku</string>
+    <string name="hand_wave_gesture_summary">Rādīt paziņojumus, pamājot ar roku</string>
+    <string name="pocket_gesture_title">Kabata</string>
+    <string name="pocket_gesture_summary">Izņemot no kabatas, rādīt paziņojumus </string>
+</resources>

@@ -1,0 +1,8 @@
+Floral Motion Sense build plugin
+
+Integration and port changes: Copyright 2026 Hecker.
+AOSP and LineageOS source files retain their original copyright notices and Apache-2.0 license.
+The repository LICENSE covers source/build code; imported Google APKs/native binaries and upstream compatibility libraries retain their upstream terms.
+Immutable source URLs and SHA-256 fingerprints are listed in prebuilts.lock.json.
+Shared settings resources: LineageOS/android_packages_resources_devicesettings at 661fc4036da370a73e56dbd2949c18f8ab464b9b.
+Original Pixel illustrations retain their upstream attribution; Motion Lab illustrations are authored for this port.

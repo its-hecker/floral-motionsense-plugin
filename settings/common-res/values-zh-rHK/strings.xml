@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: 2013-2016 The CyanogenMod Project
+     SPDX-FileCopyrightText: The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="user_aware_display_title">使用者感知顯示</string>
+    <string name="user_aware_display_summary">當用戶在顯示器前保持螢幕開啟</string>
+    <string name="hand_wave_gesture_title">揮手</string>
+    <string name="pocket_gesture_title">口袋</string>
+    <string name="pocket_gesture_summary">從口袋中取出時發出脈動通知</string>
+    <string name="proximity_wake_title">接近喚醒</string>
+    <string name="proximity_wake_enable_title">接近喚醒</string>
+    <string name="proximity_wake_enable_summary">揮手喚醒裝置</string>
+    <string name="action_none">停用</string>
+    <string name="action_launch_camera">啟動相機</string>
+    <string name="action_torch">切換電筒</string>
+    <string name="feedback_intensity_title">觸覺回饋強度</string>
+    <string name="feedback_intensity_summary">對於雙重扭動和迅速動作的觸覺回饋強度</string>
+    <string name="feedback_intensity_none">已停用</string>
+    <string name="feedback_intensity_low">低</string>
+    <string name="feedback_intensity_medium">中</string>
+    <string name="feedback_intensity_high">高</string>
+    <string name="disabled">已停用</string>
+</resources>

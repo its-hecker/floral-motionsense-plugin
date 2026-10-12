@@ -1,0 +1,8 @@
+# floral_oslo_app is declared in system_ext/public (coredomain); these rules need
+# vendor-defined types, which system_ext policy cannot reference.
+
+# Soli calibration (oslo.cal, tx_power.cal)
+allow floral_oslo_app persist_file:dir search;
+r_dir_file(floral_oslo_app, persist_oslo_file)
+
+get_prop(floral_oslo_app, vendor_aware_available_prop)

@@ -1,0 +1,20 @@
+// SPDX-License-Identifier: Apache-2.0
+android_library {
+    name: "FloralMotionSenseSettingsResources",
+    defaults: ["SettingsLibDefaults"],
+    resource_dirs: ["common-res"],
+    static_libs: ["androidx.core_core", "androidx.preference_preference"],
+    sdk_version: "current",
+}
+
+android_app {
+    name: "FloralMotionSenseSettings",
+    srcs: ["src/**/*.java"],
+    resource_dirs: ["res"],
+    certificate: "platform",
+    platform_apis: true,
+    privileged: true,
+    system_ext_specific: true,
+    static_libs: ["FloralMotionSenseSettingsResources", "lottie"],
+    optimize: { enabled: false },
+}

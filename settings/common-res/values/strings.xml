@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: 2013-2016 The CyanogenMod Project
+     SPDX-FileCopyrightText: The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- DO NOT TRANSLATE Empty summary for dynamic preferences -->
+    <string name="summary_empty" translatable="false"></string>
+
+    <!-- Device specific settings -->
+    <string name="device_settings_app_name">Advanced settings</string>
+
+    <!-- Device gestures panel -->
+    <string name="screen_gestures_panel_title">Gestures</string>
+
+    <!-- Touchscreen gesture haptic feedback -->
+    <string name="touchscreen_gesture_extras">Extras</string>
+    <string name="touchscreen_gesture_haptic_feedback">Haptic feedback</string>
+    <string name="touchscreen_gesture_haptic_feedback_summary">Vibrate when a touchscreen gesture is detected</string>
+
+    <!-- Touchscreen gestures -->
+    <string name="touchscreen_gesture_settings_title">Touchscreen gestures</string>
+    <string name="touchscreen_gesture_settings_summary">Perform various touchscreen gestures for quick actions</string>
+
+    <string name="gesture_display_title">Screen off gestures</string>
+    <string name="touchscreen_c_gesture_title">Camera</string>
+    <string name="touchscreen_c_gesture_summary">Draw a \"C\" to activate camera</string>
+    <string name="touchscreen_e_gesture_title">Email</string>
+    <string name="touchscreen_e_gesture_summary">Draw an \"e\" to open the email app</string>
+    <string name="touchscreen_m_gesture_title">Messaging</string>
+    <string name="touchscreen_m_gesture_summary">Draw a \"M\" to open the messaging app</string>
+    <string name="touchscreen_s_gesture_title">Messaging</string>
+    <string name="touchscreen_s_gesture_summary">Draw an \"S\" to open the messaging app</string>
+    <string name="touchscreen_v_gesture_title">Dialer</string>
+    <string name="touchscreen_v_gesture_summary">Draw a \"V\" to open the dialer app</string>
+    <string name="touchscreen_w_gesture_title">Browser</string>
+    <string name="touchscreen_w_gesture_summary">Draw a \"W\" to open the browser app</string>
+    <string name="touchscreen_z_gesture_title">Flashlight</string>
+    <string name="touchscreen_z_gesture_summary">Draw a \"Z\" to toggle flashlight</string>
+    <string name="touchscreen_flashlight_gesture_title">Flashlight</string>
+    <string name="touchscreen_flashlight_gesture_summary">Draw a circle to toggle flashlight</string>
+    <string name="touchscreen_music_gesture_title">Music</string>
+    <string name="touchscreen_music_gesture_summary">Use gestures to control music playback \n
+    • Swipe down to play/pause\n
+    • Swipe left for previous track\n
+    • Swipe right for next track</string>
+
+    <string name="touchscreen_swipe_up_title">Swipe up</string>
+    <string name="touchscreen_swipe_right_title">Swipe right</string>
+    <string name="touchscreen_swipe_down_title">Swipe down</string>
+    <string name="touchscreen_swipe_left_title">Swipe left</string>
+
+    <!-- User-aware display -->
+    <string name="user_aware_display_title">User-aware display</string>
+    <string name="user_aware_display_summary">Keep the screen on while a user is in front of the display</string>
+
+    <!-- Ambient Display -->
+    <string name="ambient_display_title">Ambient display</string>
+    <string name="ambient_display_enable_title">Use ambient display</string>
+    <string name="ambient_display_enable_summary">Wake screen when you receive notifications</string>
+    <string name="ambient_display_gestures_title">Ambient display gestures</string>
+    <string name="ambient_display_gestures_summary">Additional gestures to wake the screen</string>
+    <string name="ambient_display_summary">Wake screen when you receive notifications</string>
+    <string name="ambient_display_summary_on">Screen will wake when you receive notifications</string>
+    <string name="ambient_display_summary_off">Screen will not wake when you receive notifications</string>
+    <string name="ambient_display_always_on_title">Always on</string>
+    <string name="ambient_display_always_on_summary">Show time, notification icons, and other info. Increased battery usage.</string>
+
+    <!-- Tilt sensor -->
+    <string name="tilt_sensor_title">Tilt sensor</string>
+
+    <!-- Pickup sensor -->
+    <string name="pickup_sensor_title">Pickup sensor</string>
+
+    <!-- Proximity sensor -->
+    <string name="proximity_sensor_title">Proximity sensor</string>
+
+    <!-- Hand wave gesture -->
+    <string name="hand_wave_gesture_title">Hand wave</string>
+    <string name="hand_wave_gesture_summary">Pulse notifications on hand wave</string>
+    <string name="hand_wave_gesture_flat_title">Detect orientation</string>
+    <string name="hand_wave_gesture_flat_summary">Pulse only if the phone is lying face up on a flat surface</string>
+
+    <!-- Pick-up gesture -->
+    <string name="pick_up_gesture_title">Pick-up</string>
+    <string name="pick_up_gesture_summary">Pulse notifications on pick-up</string>
+    <string name="pick_up_wake_gesture_summary">Wake device on pick-up</string>
+
+    <!-- Pocket gesture -->
+    <string name="pocket_gesture_title">Pocket</string>
+    <string name="pocket_gesture_summary">Pulse notifications on removal from pocket</string>
+
+    <!-- Proximity wake -->
+    <string name="proximity_wake_title">Proximity wake</string>
+    <string name="proximity_wake_enable_title">Proximity wake</string>
+    <string name="proximity_wake_enable_summary">Wake device on hand wave</string>
+
+    <!-- Device actions -->
+    <string name="actions_title">Actions</string>
+    <string name="device_gestures_panel_summary">Special device gestures</string>
+    <string name="moto_gestures_panel_title">Moto gestures</string>
+
+    <!-- Camera gesture -->
+    <string name="camera_gesture_title">Double-twist</string>
+    <string name="camera_gesture_summary">Open camera when using the double twist gesture</string>
+
+    <!-- Chop-chop gesture -->
+    <string name="chop_chop_gesture_title">Chop-chop</string>
+    <string name="chop_chop_gesture_summary">Toggle flashlight when using the chop-chop gesture</string>
+
+    <!-- Hand wave silencer gesture -->
+    <string name="hand_wave_silencer_title">Wave to silence</string>
+    <string name="hand_wave_silencer_summary">Silence incoming calls by waving your hand across the screen</string>
+
+    <!-- Flip to mute gesture -->
+    <string name="flip_to_mute_title">Flip for Do Not Disturb</string>
+    <string name="flip_to_mute_summary">Place the phone face down to silence notifications and calls</string>
+
+    <!-- Do Not Disturb access -->
+    <string name="dnd_access">Please, give Do Not Disturb access to CMActions in order to use this feature.</string>
+
+    <!-- Lift to silence gesture -->
+    <string name="lift_to_silence_title">Pick up to stop ringing</string>
+    <string name="lift_to_silence_summary">Lift the phone to silence incoming calls. It only works when your phone starts flat</string>
+
+    <!-- Action toggles -->
+    <string name="action_none">Disable</string>
+    <string name="action_launch_camera">Launch camera</string>
+    <string name="action_torch">Toggle torch</string>
+
+    <!-- Feedback intensity -->
+    <string name="feedback_intensity_title">Haptic feedback intensity</string>
+    <string name="feedback_intensity_summary">Strength of the haptic feedback for the double-twist and chop-chop actions</string>
+    <string name="feedback_intensity_none">Disabled</string>
+    <string name="feedback_intensity_low">Low</string>
+    <string name="feedback_intensity_medium">Medium</string>
+    <string name="feedback_intensity_high">High</string>
+
+    <!-- Dialog texts -->
+    <string name="dialog_ok">OK</string>
+
+    <!-- Generic texts -->
+    <string name="disabled">Disabled</string>
+    <string name="none">None</string>
+
+    <!-- Button settings -->
+    <string name="button_panel_title">Additional buttons</string>
+    <string name="button_swap_title">Swap buttons</string>
+    <string name="button_swap_summary">Swap the order of recents and back buttons</string>
+
+    <!-- Fingerprint -->
+    <string name="fingerprint_title">Fingerprint</string>
+    <string name="fingerprint_as_home_title">Fingerprint as home</string>
+    <string name="fingerprint_as_home_summary">Use the fingerprint sensor as a home button</string>
+    <string name="fingerprint_wakeup_title">Fingerprint wake-up</string>
+    <string name="fingerprint_wakeup_summary">Allow the fingerprint sensor to wake the device while the screen is off</string>
+    <string name="fingerprint_pocketmode_title">Prevent accidental wake-up</string>
+    <string name="fingerprint_pocketmode_summary">Check the proximity sensor prior to wake-ups triggered by the fingerprint sensor</string>
+    <string name="fingerprint_sleep_title">Fingerprint sleep</string>
+    <string name="fingerprint_sleep_summary">Press the fingerprint sensor to turn off the screen</string>
+
+    <!-- High touch sensitivity -->
+    <string name="high_touch_sensitivity_title">High touch sensitivity</string>
+    <string name="high_touch_sensitivity_summary">Increase touchscreen sensitivity so it can be used while wearing gloves</string>
+
+    <!-- Quick charge toggle -->
+    <string name="quick_charge_title">Quick charge</string>
+    <string name="quick_charge_summary">Toggle quick charge. Unplug and replug the charger after changing this setting</string>
+
+    <!-- Camera focus fix toggle -->
+    <string name="camera_focus_fix_title">Camera focus fix</string>
+    <string name="camera_focus_fix_summary">Enable if you have issues with the camera not focusing</string>
+
+    <!-- Wake on gesture -->
+    <string name="wake_on_gesture_title">Wake up on gestures</string>
+    <string name="wake_on_gesture_summary">Wake the device instead of pulsing notifications on gesture events</string>
+
+    <!-- Stylus -->
+    <string name="stylus_panel_title">Stylus</string>
+    <string name="stylus_panel_summary">Control stylus behavior</string>
+    <string name="stylus_removed_category_title">Stylus removed</string>
+    <string name="stylus_inserted_category_title">Stylus inserted</string>
+    <string name="stylus_screen_on_when_removed_title">Turn screen on</string>
+    <string name="stylus_screen_on_when_removed_summary">Turn the screen on when removing the stylus</string>
+    <string name="stylus_screen_off_when_inserted_title">Turn screen off</string>
+    <string name="stylus_screen_off_when_inserted_summary">Turn the screen off when inserting the stylus</string>
+    <string name="stylus_vibrate_title">Vibrate</string>
+    <string name="stylus_vibrate_when_removed_summary">Vibrate when removing the stylus</string>
+    <string name="stylus_vibrate_when_inserted_summary">Vibrate when inserting the stylus</string>
+    <string name="stylus_launch_app_title">Launch app when removed</string>
+
+    <!-- Popup camera -->
+    <string name="popup_title">Front camera settings</string>
+    <string name="popup_calibration_title">Calibration</string>
+    <string name="popup_calibration_summary">Calibrate the popup camera motor</string>
+    <string name="popup_calibration_warning_title">Motor calibration</string>
+    <string name="popup_calibration_warning_text">Unnecessary use of calibration may cause permanent damage. It is recommended to calibrate the popup camera motor only in case of it not moving properly or it being in incorrect position!</string>
+    <string name="popup_camera_tip">Warning</string>
+    <string name="popup_camera_takeback_failed_calibrate">Couldn\'t close front camera. Try calibrating the motor.</string>
+    <string name="popup_camera_popup_failed_calibrate">Couldn\'t open front camera. Try calibrating the motor.</string>
+    <string name="popup_camera_calibrate_running">Front camera cannot be used during calibration.</string>
+    <string name="popup_camera_calibrate_now">Calibrate</string>
+    <string name="popup_camera_calibrate_failed">Couldn\'t calibrate</string>
+    <string name="popup_camera_calibrate_success">Calibrated successfully. You can open the front camera now.</string>
+    <string name="popup_led_title">Camera LED</string>
+    <string name="popup_led_summary">Enable LED light while the front camera appears and retracts</string>
+    <string name="popup_sound_title">Sound effects</string>
+    <string name="popup_sound_muqin">Xylophone</string>
+    <string name="popup_sound_yingyan">Condor</string>
+    <string name="popup_sound_mofa">Magic</string>
+    <string name="popup_sound_jijia">Mecha</string>
+    <string name="popup_sound_chilun">Gearwheel</string>
+    <string name="popup_sound_cangmen">Cabin door</string>
+
+    <!-- Doze brightness -->
+    <string name="doze_brightness_title">Always on brightness</string>
+    <string name="doze_brightness_summary"><xliff:g id="mode" example="Low brightness">%s</xliff:g> mode is enabled</string>
+    <string name="doze_brightness_low">Low brightness</string>
+    <string name="doze_brightness_high">High brightness</string>
+    <string name="doze_brightness_adaptive">Adaptive brightness</string>
+
+    <!-- Alert slider -->
+    <string name="alert_slider_category_title">Alert slider</string>
+    <string name="alert_slider_selection_dialog_title">Action</string>
+    <string name="alert_slider_top_position">Top position</string>
+    <string name="alert_slider_middle_position">Middle position</string>
+    <string name="alert_slider_bottom_position">Bottom position</string>
+    <string name="alert_slider_mode_none">None</string>
+    <string name="alert_slider_mode_silent">Silent</string>
+    <string name="alert_slider_mode_normal">Normal</string>
+    <string name="alert_slider_mode_vibration">Vibration</string>
+    <string name="alert_slider_mode_dnd_priority_only">Priority only</string>
+    <string name="alert_slider_mode_dnd_total_silence">Total silence</string>
+    <string name="alert_slider_mode_dnd_alarms_only">Alarms only</string>
+    <string name="alert_slider_mode_torch_on">Torch on</string>
+    <string name="alert_slider_mode_torch_off">Torch off</string>
+    <string name="alert_slider_mute_media_title">Mute media</string>
+    <string name="alert_slider_mute_media_summary">Mute media when switching to silent</string>
+    <string name="alert_slider_notification_dialog_title">Show slider dialog</string>
+    <string name="alert_slider_notification_dialog_summary">Display a dialog when the alert slider position changes</string>
+</resources>

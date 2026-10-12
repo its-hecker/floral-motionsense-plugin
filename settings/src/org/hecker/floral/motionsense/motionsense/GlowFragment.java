@@ -1,0 +1,188 @@
+/*
+ * SPDX-FileCopyrightText: 2026 its-hecker
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+package org.hecker.floral.motionsense.motionsense;
+
+import android.content.Context;
+import android.content.Intent;
+import android.database.ContentObserver;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+
+import androidx.preference.Preference;
+import androidx.preference.PreferenceScreen;
+import androidx.preference.SeekBarPreference;
+import androidx.preference.SwitchPreferenceCompat;
+
+import com.android.settingslib.widget.FooterPreference;
+import com.android.settingslib.widget.IllustrationPreference;
+import com.android.settingslib.widget.MainSwitchPreference;
+import com.android.settingslib.widget.SettingsBasePreferenceFragment;
+
+import org.hecker.floral.motionsense.R;
+
+import static org.hecker.floral.motionsense.motionsense.MotionSense.*;
+
+/**
+ * The Glow light page: a master switch, brightness and size sliders, and the
+ * color modes and Glow Theme Studio. Every value is a Settings.Secure key that OsloFeedback reads;
+ * the glow redraws live (ContentObserver in OsloTweaks), no reboot.
+ */
+public class GlowFragment extends SettingsBasePreferenceFragment {
+
+    private MotionSense.Illustration mIllustration;
+    private MainSwitchPreference mShow;
+    private SeekBarPreference mBrightness;
+    private SeekBarPreference mSize;
+    private SwitchPreferenceCompat mRainbow;
+    private SwitchPreferenceCompat mAccent;
+    private FooterPreference mFooter;
+
+    private final ContentObserver mObserver = new ContentObserver(
+            new Handler(Looper.getMainLooper())) {
+        @Override
+        public void onChange(boolean selfChange, Uri uri) {
+            updateState();
+        }
+    };
+
+    @Override
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        Context context = requireContext();
+        PreferenceScreen screen = getPreferenceManager().createPreferenceScreen(context);
+        setPreferenceScreen(screen);
+
+        IllustrationPreference illustration = new IllustrationPreference(context);
+        illustration.setKey("glow_illustration");
+        mIllustration = MotionSense.setUpIllustration(context, illustration,
+                R.raw.motion_sense_glow, R.string.motion_sense_glow_page_title);
+        screen.addPreference(illustration);
+
+        mShow = new MainSwitchPreference(context);
+        mShow.setKey(KEY_GLOW_SHOW);
+        mShow.setTitle(R.string.motion_sense_glow_show_title);
+        mShow.setPersistent(false);
+        mShow.setOnPreferenceChangeListener((p, v) -> {
+            put(context, KEY_GLOW_SHOW, (Boolean) v ? 1 : 0);
+            return true;
+        });
+        screen.addPreference(mShow);
+
+        mBrightness = newSlider(context, KEY_GLOW_BRIGHTNESS,
+                R.string.motion_sense_glow_brightness_title, 10, 100);
+        screen.addPreference(mBrightness);
+
+        mSize = newSlider(context, KEY_GLOW_SIZE,
+                R.string.motion_sense_glow_size_title, 50, 150);
+        screen.addPreference(mSize);
+
+        mRainbow = new SwitchPreferenceCompat(context);
+        mRainbow.setKey(KEY_GLOW_RAINBOW);
+        mRainbow.setTitle(R.string.motion_sense_glow_rainbow_title);
+        mRainbow.setSummary(R.string.motion_sense_glow_rainbow_summary);
+        mRainbow.setPersistent(false);
+        mRainbow.setOnPreferenceChangeListener((p, v) -> {
+            put(context, KEY_GLOW_RAINBOW, (Boolean) v ? 1 : 0);
+            if ((Boolean) v) put(context, KEY_GLOW_CUSTOM, 1);
+            updateState();
+            return true;
+        });
+        screen.addPreference(mRainbow);
+
+        mAccent = new SwitchPreferenceCompat(context);
+        mAccent.setKey(KEY_GLOW_ACCENT);
+        mAccent.setTitle(R.string.motion_sense_glow_accent_title);
+        mAccent.setSummary(R.string.motion_sense_glow_accent_summary);
+        mAccent.setPersistent(false);
+        mAccent.setOnPreferenceChangeListener((p, v) -> {
+            put(context, KEY_GLOW_ACCENT, (Boolean) v ? 1 : 0);
+            if ((Boolean) v) put(context, KEY_GLOW_CUSTOM, 1);
+            updateState();
+            return true;
+        });
+        screen.addPreference(mAccent);
+
+        Preference studio = new Preference(context);
+        studio.setKey("motion_lab_studio");
+        studio.setTitle(R.string.motion_lab_studio);
+        studio.setSummary(R.string.motion_lab_studio_intro);
+        studio.setIntent(new Intent(context,
+                org.hecker.floral.motionsense.motionsense.lab.GlowStudioActivity.class));
+        screen.addPreference(studio);
+
+        mFooter = new FooterPreference(context);
+        mFooter.setKey("glow_footer");
+        mFooter.setTitle(R.string.motion_sense_glow_footer);
+        mFooter.setSelectable(false);
+        screen.addPreference(mFooter);
+    }
+
+    private SeekBarPreference newSlider(Context context, String key, int title, int min, int max) {
+        SeekBarPreference slider = new SeekBarPreference(context);
+        slider.setKey(key);
+        slider.setTitle(title);
+        slider.setMin(min);
+        slider.setMax(max);
+        slider.setShowSeekBarValue(true);
+        slider.setUpdatesContinuously(true);
+        slider.setPersistent(false);
+        slider.setOnPreferenceChangeListener((p, v) -> {
+            put(context, key, (Integer) v);
+            return true;
+        });
+        return slider;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MotionSense.registerObserver(requireContext().getContentResolver(), mObserver);
+        updateState();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        requireContext().getContentResolver().unregisterContentObserver(mObserver);
+    }
+
+    private void updateState() {
+        Context context = getContext();
+        if (context == null) {
+            return;
+        }
+        boolean configurable = MotionSense.isConfigurable(context);
+        boolean show = isOn(context, KEY_GLOW_SHOW);
+        boolean glowOn = configurable && show;
+        boolean rainbow = isOn(context, KEY_GLOW_RAINBOW);
+
+        mShow.setChecked(show);
+        mShow.setEnabled(configurable);
+
+        mBrightness.setValue(get(context, KEY_GLOW_BRIGHTNESS));
+        mBrightness.setEnabled(glowOn);
+        mSize.setValue(get(context, KEY_GLOW_SIZE));
+        mSize.setEnabled(glowOn);
+
+        boolean accent = isOn(context, KEY_GLOW_ACCENT);
+
+        mAccent.setChecked(accent);
+        mAccent.setEnabled(glowOn);
+        mRainbow.setChecked(rainbow);
+        mRainbow.setEnabled(glowOn && !accent);
+
+        int reason = MotionSense.getUnavailableReason(context);
+        if (reason != 0) {
+            mFooter.setTitle(reason);
+        } else if (!MotionSense.isOn(context, KEY_ENABLED)) {
+            mFooter.setTitle(R.string.motion_sense_turn_on_first);
+        } else {
+            mFooter.setTitle(R.string.motion_sense_glow_footer);
+        }
+        mIllustration.updateGlow();
+    }
+}
