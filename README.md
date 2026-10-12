@@ -1,7 +1,7 @@
 # Floral Motion Sense plugin — Android 17
 
 Reusable Motion Sense build integration for **Pixel 4 (`flame`) and Pixel 4 XL
-(`coral`)**, based on Hecker's working Android 17 port. This is a ROM source
+(`coral`)**, based on my working Android 17 port. This is a ROM source
 plugin: builders inherit its product and board files, prepare their SystemUI
 configuration, and build it into the ROM.
 
