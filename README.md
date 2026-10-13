@@ -151,7 +151,7 @@ plugin is optional and does not need this plugin to function.
 
 ## Sources and credits
 
-Port, polish and additional features: **Hecker**. Google supplies the Oslo stack
+Port, polish and additional features: **Hecker** (https://github.com/its-hecker). Google supplies the Oslo stack
 and original Pixel assets; AOSP/LineageOS supply the platform APIs and settings
 resources. Source provenance and immutable binary fingerprints are recorded in
 `NOTICE` and `prebuilts.lock.json`.
