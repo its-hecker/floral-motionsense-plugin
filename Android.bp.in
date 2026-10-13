@@ -1,4 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
+soong_namespace {}
+
 package {
     default_applicable_licenses: ["floral_motionsense_license"],
 }
@@ -9,8 +11,6 @@ license {
     license_kinds: ["SPDX-license-identifier-Apache-2.0", "legacy_by_exception_only"],
     license_text: ["LICENSE", "NOTICE"],
 }
-
-soong_namespace {}
 
 android_app_import {
     name: "FloralOsloFeedback",
