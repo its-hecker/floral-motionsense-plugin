@@ -22,8 +22,8 @@ jobs:
         run: |
           python3 tools/fetch_prebuilts.py
           python3 tools/check_port.py
-      - name: Test allowlist precedence and download integrity
-        run: python3 -m unittest discover -s tests -p test_setup.py -v
+      - name: Test allowlist/download integrity and product/bootstrap Make parsing
+        run: python3 -m unittest discover -s tests -p 'test_*.py' -v
       - name: Prepare Android and animation tools
         run: |
           set -euo pipefail

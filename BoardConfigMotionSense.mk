@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
-FLORAL_MOTION_PLUGIN_PATH := $(call my-dir)
+# Product bootstrap can run before Android defines the my-dir helper.
+FLORAL_MOTION_PLUGIN_PATH := $(patsubst %/,%,$(dir $(lastword $(MAKEFILE_LIST))))
 include $(FLORAL_MOTION_PLUGIN_PATH)/generated/policy.mk
 
 ifneq ($(FLORAL_MOTION_USE_EXISTING_OSLO_POLICY),true)

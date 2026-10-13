@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
-FLORAL_MOTION_PLUGIN_PATH := $(call my-dir)
+# Product bootstrap can run before Android defines the my-dir helper.
+FLORAL_MOTION_PLUGIN_PATH := $(patsubst %/,%,$(dir $(lastword $(MAKEFILE_LIST))))
 
 ifeq ($(wildcard $(FLORAL_MOTION_PLUGIN_PATH)/generated/profile.json),)
 $(error Run $(FLORAL_MOTION_PLUGIN_PATH)/tools/fetch_prebuilts.py and tools/prepare.py before building)
