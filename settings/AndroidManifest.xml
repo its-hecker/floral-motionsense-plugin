@@ -23,10 +23,6 @@
             <meta-data android:name="com.android.settings.icon_tintable" android:value="true" />
             <meta-data android:name="com.android.settings.summary" android:resource="@string/motion_sense_summary" />
             <meta-data android:name="com.android.settings.order" android:value="-255" />
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".motionsense.GestureActivity" android:exported="false" android:theme="@style/Theme.SubSettingsBase" />
         <activity android:name=".motionsense.GlowActivity" android:exported="false" android:label="@string/motion_sense_glow_page_title" android:theme="@style/Theme.SubSettingsBase" />
