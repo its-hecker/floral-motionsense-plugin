@@ -84,8 +84,26 @@ The product removes the older `OsloFeedback`, bridge and
 `GoogleOsloSystemUIOverlay` package selections and adds the plugin equivalents.
 Keep this inheritance **after** the base/vendor products. If GoogleParts already
 has a Motion Sense page, remove that older tile or use its page instead of
-adding two entries to Settings. The standalone app also has a launcher entry
-for ROMs without Settings tile discovery.
+adding two entries to Settings. The standalone page is exposed through Settings and its Quick Settings tile;
+it does not add a duplicate app-drawer icon.
+
+The plugin installs its own narrow `WRITE_SECURE_SETTINGS` allowlist on
+`system_ext`, alongside the privileged Settings app. Remove older device copy
+entries when updating; the product include also filters the previous destination
+to prevent duplicate installers.
+
+Country availability remains a ROM configuration choice. To opt in to the
+country override used by the working Floral port, set this **before** inheritance:
+
+```make
+FLORAL_MOTION_COUNTRY_OVERRIDE := true
+$(call inherit-product, vendor/hecker/floral/motionsense/motionsense.mk)
+```
+
+The default is `false`. Use either this option or an existing
+`pixel.oslo.allowed_override=1` product property, avoiding duplicate definitions.
+The generated policy already gives Oslo the scoped property read permission.
+Airplane-mode and battery-saver checks retain their normal behavior.
 
 Build using your ROM's normal lunch target and build command. No Infinity-specific
 lunch name is required. Rerun preparation after changing or syncing its selected
@@ -142,7 +160,7 @@ Airplane mode, battery saver and user choices retain their normal behavior.
 | --- | --- |
 | Source port on Coral / Infinity Android 17 | Motion Sense gestures and glow confirmed on the phone |
 | Standalone packaging | APK interfaces, checksums, setup tests and Motion Lab source/DEX checks in CI |
-| Full ROM using these new package names | Requires builder validation |
+| Standalone plugin on Coral / PixelOS Android 17 | Gesture detection, tap-to-pause and media next/previous confirmed on 18 October 2026 |
 | Flame and other Android 17 ROM forks | Integration targets; phone verification still required |
 
 Custom Sidekick wallpapers are not included. The bridge supports compatible

@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 """Check APK interfaces, source components and production allowlist packaging."""
 from pathlib import Path
+import re
 import zipfile
 import xml.etree.ElementTree as ET
 from apk_resource_reader import xml
@@ -11,8 +12,34 @@ from prepare import OSLO
 A = "{http://schemas.android.com/apk/res/android}"
 
 
+def check_settings_permissions(root=ROOT):
+    manifest = ET.parse(root / "settings/AndroidManifest.xml").getroot()
+    grants = ET.parse(root / "configs/privapp-permissions-floral-motionsense.xml").getroot()
+    entries = grants.findall("privapp-permissions")
+    if (len(entries) != 1 or entries[0].get("package") != manifest.get("package")
+            or [p.get("name") for p in entries[0].findall("permission")]
+            != ["android.permission.WRITE_SECURE_SETTINGS"]):
+        raise ValueError("Motion Sense needs exactly its own WRITE_SECURE_SETTINGS allowlist")
+    bp = (root / "Android.bp.in").read_text()
+    blocks = re.findall(r'(?ms)^prebuilt_etc\s*\{\s*name:\s*"FloralMotionSensePrivappPermissions",.*?^\}', bp)
+    required = ['src: "configs/privapp-permissions-floral-motionsense.xml"',
+                'filename: "privapp-permissions-floral-motionsense.xml"',
+                'sub_dir: "permissions"', 'system_ext_specific: true']
+    if len(blocks) != 1 or not all(value in blocks[0] for value in required):
+        raise ValueError("Motion Sense privileged allowlist must install once on system_ext")
+    settings = (root / "settings/Android.bp.in").read_text()
+    if not all(value in settings for value in ['privileged: true', 'system_ext_specific: true',
+                                              'required: ["FloralMotionSensePrivappPermissions"]']):
+        raise ValueError("Motion Sense settings must require its matching privileged allowlist")
+    names = {node.get(A + "name") for node in manifest.findall(".//action")}
+    categories = {node.get(A + "name") for node in manifest.findall(".//category")}
+    if "com.android.settings.action.IA_SETTINGS" not in names or "android.intent.category.LAUNCHER" in categories:
+        raise ValueError("Motion Sense must provide its Settings entry without an app-drawer duplicate")
+
+
 def check(root=ROOT):
     verify_all(root)
+    check_settings_permissions(root)
     with zipfile.ZipFile(root / "proprietary/system_ext/priv-app/OsloFeedback/OsloFeedback.apk") as z:
         manifest = xml(z.read("AndroidManifest.xml"))
         if manifest.get("package") != "com.google.oslo":
@@ -45,7 +72,7 @@ def check(root=ROOT):
     if "type floral_oslo_app, domain, coredomain;" not in policy:
         raise ValueError("Oslo must be a platform coredomain")
     print("Oslo APK interfaces, full bridge implementation and standalone settings components: PASS")
-    print("SystemUI overlay and platform/vendor policy separation: PASS")
+    print("SystemUI overlay, Settings entry/privileged allowlist and platform/vendor policy separation: PASS")
 
 
 if __name__ == "__main__":

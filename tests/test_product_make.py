@@ -37,11 +37,14 @@ class ProductMakeTests(unittest.TestCase):
         (self.plugin / "tools/verify_ready.py").write_text(
             "import os\nprint(os.environ.get('FLORAL_MAKE_TEST_READY', 'ready'))\n")
 
-    def parse(self, entries=None, helper=False, stale=False, relative=None):
+    def parse(self, entries=None, helper=False, stale=False, relative=None, country_override=None):
         relative = self.relative if relative is None else relative
         lines = ["TARGET_COPY_OUT_VENDOR := vendor",
+                 "TARGET_COPY_OUT_SYSTEM_EXT := system_ext",
                  "PRODUCT_PACKAGES := KeepMe android.hardware.biometrics.face@1.0-service.google OsloFeedback",
-                 "PRODUCT_COPY_FILES := keep:vendor/etc/keep"]
+                 "PRODUCT_COPY_FILES := keep:vendor/etc/keep legacy.xml:system_ext/etc/permissions/privapp-permissions-floral-motionsense.xml"]
+        if country_override is not None:
+            lines.append("FLORAL_MOTION_COUNTRY_OVERRIDE := " + country_override)
         if helper:
             lines.append("my-dir = $(patsubst %/,%,$(dir $(lastword $(MAKEFILE_LIST))))")
         for entry in [PRODUCT, BOARD] if entries is None else entries:
@@ -51,6 +54,7 @@ class ProductMakeTests(unittest.TestCase):
             "$(info PROBE_NAMESPACES=$(PRODUCT_SOONG_NAMESPACES))",
             "$(info PROBE_PACKAGES=$(PRODUCT_PACKAGES))",
             "$(info PROBE_COPIES=$(PRODUCT_COPY_FILES))",
+            "$(info PROBE_PROPERTIES=$(PRODUCT_PRODUCT_PROPERTIES))",
             "$(info PROBE_POLICY=$(BOARD_VENDOR_SEPOLICY_DIRS))",
             ".PHONY: all", "all:", "\t@:",
         ])
@@ -98,6 +102,22 @@ class ProductMakeTests(unittest.TestCase):
         relative = Path("vendor/port-test/relocated")
         shutil.copytree(self.plugin, self.rom / relative)
         self.assert_valid(self.parse(relative=relative), relative)
+
+    def test_plugin_owns_permission_module_and_removes_the_older_device_copy(self):
+        result = self.parse()
+        self.assert_valid(result)
+        self.assertIn("FloralMotionSensePrivappPermissions", result.stdout)
+        self.assertNotIn("legacy.xml:", result.stdout)
+
+    def test_country_override_is_opt_in(self):
+        self.assertNotIn("pixel.oslo.allowed_override", self.parse().stdout)
+        result = self.parse(country_override="true")
+        self.assert_valid(result)
+        self.assertIn("PROBE_PROPERTIES=pixel.oslo.allowed_override=1", result.stdout)
+        self.assertNotIn("airplane_mode.allowed_override", result.stdout)
+        invalid = self.parse(country_override="yes")
+        self.assertNotEqual(invalid.returncode, 0)
+        self.assertIn("must be true or false", invalid.stderr)
 
 
 if __name__ == "__main__":
