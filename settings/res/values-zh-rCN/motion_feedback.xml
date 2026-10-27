@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="hecker_motion_feedback_title">隔空操作胶囊与狞猫</string>
+    <string name="hecker_motion_feedback_summary">音乐胶囊、锁屏播放器和摇摆宇航员。</string>
+</resources>

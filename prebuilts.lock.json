@@ -2,13 +2,13 @@
   "schema": 1,
   "artifacts": [
     {
-      "repository": "its-hecker/infinity_cnb_proprietary_vendor_google_coral",
-      "revision": "211e454a5809b98fb85e883ace545fbdb9ba939d",
-      "path": "proprietary/system_ext/priv-app/OsloFeedback/OsloFeedback.apk",
+      "repository": "its-hecker/infinity_OsloFeedback",
+      "revision": "3f648b48e8958d88bfcdc2be0e3afa4b9fd72d4a",
+      "path": "prebuilts/OsloFeedback-MotionIsland.apk",
       "destination": "proprietary/system_ext/priv-app/OsloFeedback/OsloFeedback.apk",
-      "sha256": "5f6c2e0c908e4d726eb62543c8d7f8492ade99b1d9043baa415873093598ac54",
-      "size": 13251001,
-      "git_blob": "143d4a577f218154253a0a50f17efd3ae2a5c896"
+      "sha256": "83c339886abcbc5738003756a15cf0a25d13212545acd3dad79ae0a75bd92a09",
+      "size": 7809711,
+      "git_blob": "56948993877f4c51bf046115843bff5a0bf3b9af"
     },
     {
       "repository": "its-hecker/infinity_cnb_proprietary_vendor_google_coral",

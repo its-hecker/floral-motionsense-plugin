@@ -120,6 +120,12 @@
             android:summary="@string/motion_sense_glow_page_summary"
             android:persistent="false" />
 
+        <Preference
+            android:key="hecker_motion_feedback"
+            android:title="@string/hecker_motion_feedback_title"
+            android:summary="@string/hecker_motion_feedback_summary"
+            android:persistent="false" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

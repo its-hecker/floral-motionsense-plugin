@@ -113,6 +113,15 @@ public class MotionSenseFragment extends SettingsBasePreferenceFragment
             preference.setOnPreferenceChangeListener(this);
         }
         findPreference("glow_page").setIntent(new Intent(context, GlowActivity.class));
+        Preference motionFeedback = findPreference("hecker_motion_feedback");
+        Intent feedbackIntent = new Intent().setClassName("org.hecker.suite",
+                "org.hecker.suite.SuiteRouterActivity")
+                .putExtra("org.hecker.suite.PAGE", "MotionFeedbackSettingsActivity");
+        motionFeedback.setVisible("coral".equals(android.os.Build.DEVICE)
+                && context.checkSelfPermission("org.hecker.suite.permission.OPEN_FEATURE")
+                        == android.content.pm.PackageManager.PERMISSION_GRANTED
+                && context.getPackageManager().resolveActivity(feedbackIntent, 0) != null);
+        motionFeedback.setIntent(feedbackIntent);
         findPreference("motion_lab_training").setIntent(new Intent(context,
                 org.hecker.floral.motionsense.motionsense.lab.TrainingActivity.class));
 

@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "protocol": 1,
+  "branch": "test/coral-root-privacy-20261027",
+  "source_repository": "its-hecker/infinity_OsloFeedback",
+  "source_revision": "3f648b48e8958d88bfcdc2be0e3afa4b9fd72d4a",
+  "source_build_record": "prebuilts/motion-island-build.json",
+  "apk_sha256": "83c339886abcbc5738003756a15cf0a25d13212545acd3dad79ae0a75bd92a09",
+  "sender_permission": "android.permission.STATUS_BAR_SERVICE",
+  "target_package": "com.android.systemui",
+  "source_validation": "34 controller checks including raw physical direction and reversed skip mapping; SDK/D8/APK build; DEX and unchanged manifest comparison; EGL/GLES shader tests passed. Full ROM/device validation pending.",
+  "direction": "Optional v1 direction: -1 left, 0 tap/unknown, +1 right, mapped from raw Oslo output rather than media action."
+}

@@ -1,5 +1,18 @@
 # Floral Motion Sense plugin — Android 17
 
+## Coral Motion Island experiment
+
+Branch `test/coral-root-privacy-20261027` selects a rebuilt, immutable Oslo APK
+with narrow media-command feedback for the matching HeckerOS Coral test. Its
+source/build provenance is recorded in `motion-feedback.json` and the source
+repository's build record. The bridge uses the existing platform signature
+permission and explicitly targets SystemUI; it adds no sensor or root API.
+
+The native Settings page links to **Motion Island & creature** when Coral and
+the signature-protected Hecker Suite router are available. Other hosts hide the
+entry. Pair this branch with the Coral test Suite/manifest; stable and Flame
+selections stay independent. Full ROM and Coral phone acceptance remain pending.
+
 Reusable Motion Sense build integration for **Pixel 4 (`flame`) and Pixel 4 XL
 (`coral`)**, based on my working Android 17 port. This is a ROM source
 plugin: builders inherit its product and board files, prepare their SystemUI

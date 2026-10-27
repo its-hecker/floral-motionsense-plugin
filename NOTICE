@@ -6,3 +6,7 @@ The repository LICENSE covers source/build code; imported Google APKs/native bin
 Immutable source URLs and SHA-256 fingerprints are listed in prebuilts.lock.json.
 Shared settings resources: LineageOS/android_packages_resources_devicesettings at 661fc4036da370a73e56dbd2949c18f8ab464b9b.
 Original Pixel illustrations retain their upstream attribution; Motion Lab illustrations are authored for this port.
+The Coral Motion Island experiment uses the rebuilt Oslo media-feedback input
+from its-hecker/infinity_OsloFeedback, with immutable source and binary hashes in
+prebuilts.lock.json and motion-feedback.json. New feedback bridge code is Apache-2.0;
+the original Google Oslo assets and existing port credits retain their provenance.

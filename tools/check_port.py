@@ -44,6 +44,16 @@ def check(root=ROOT):
         manifest = xml(z.read("AndroidManifest.xml"))
         if manifest.get("package") != "com.google.oslo":
             raise ValueError("Unexpected Oslo package")
+        permissions = {p.get(A+"name") for p in manifest.findall("uses-permission")}
+        if "android.permission.STATUS_BAR_SERVICE" not in permissions:
+            raise ValueError("Motion feedback sender lacks its existing signature permission")
+        dex = b''.join(z.read(name) for name in z.namelist()
+                       if re.fullmatch(r'classes[0-9]*\.dex', name))
+        for required in (b'Lcom/google/oslo/MotionFeedback;',
+                         b'Lcom/google/oslo/MotionFeedback$Snapshot;',
+                         b'com.google.oslo.HECKER_MOTION_FEEDBACK'):
+            if required not in dex:
+                raise ValueError("Coral feedback bridge missing from the pinned APK")
         services = {s.get(A+"name"): s for s in manifest.findall("application/service")}
         for name, action in [("com.google.oslo.OsloOverlay", "com.android.systemui.action.PLUGIN_OVERLAY"),
                              ("com.google.oslo.OsloSensorManager", "com.android.systemui.action.PLUGIN_SENSOR_MANAGER")]:
