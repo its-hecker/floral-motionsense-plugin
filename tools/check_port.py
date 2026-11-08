@@ -60,8 +60,17 @@ def check(root=ROOT):
             if name not in services or action not in {n.get(A+"name") for n in services[name].findall("intent-filter/action")}:
                 raise ValueError("Required SystemUI plugin interface missing: " + name)
     with zipfile.ZipFile(root / "proprietary/product/app/MotionSenseBridge/MotionSenseBridge.apk") as z:
-        if "classes.dex" not in z.namelist():
-            raise ValueError("Motion Sense bridge is a nonfunctional factory stub")
+        manifest = xml(z.read("AndroidManifest.xml"))
+        if (manifest.get("package") != "com.google.android.apps.motionsense.bridge"
+                or manifest.get(A + "versionCode") != "3"
+                or manifest.get(A + "versionName") != "1.0.254391180.stub"):
+            raise ValueError("Expected the immutable original Google Motion Sense Bridge stub")
+        # GApps/Play upgrades this stub. Core radar feedback is owned by OsloFeedback.
+        bp = (root / "Android.bp.in").read_text()
+        bridge = re.search(r'(?ms)^android_app_import\s*\{\s*name:\s*"FloralMotionSenseBridge",.*?^\}', bp)
+        if (bridge is None or 'presigned: true' not in bridge.group()
+                or 'preprocessed: true' not in bridge.group() or 'certificate:' in bridge.group()):
+            raise ValueError("Motion Sense Bridge must retain Google's original signing certificate")
     settings = ET.parse(root / "settings/AndroidManifest.xml").getroot()
     package = settings.get("package")
     if package != "org.hecker.floral.motionsense" or settings.get(A+"sharedUserId") != "android.uid.system":
@@ -81,7 +90,7 @@ def check(root=ROOT):
     policy = (root / "sepolicy/system_ext/public/floral_oslo_app.te").read_text()
     if "type floral_oslo_app, domain, coredomain;" not in policy:
         raise ValueError("Oslo must be a platform coredomain")
-    print("Oslo APK interfaces, full bridge implementation and standalone settings components: PASS")
+    print("Oslo APK interfaces, Google-signed Bridge stub and standalone settings components: PASS")
     print("SystemUI overlay, Settings entry/privileged allowlist and platform/vendor policy separation: PASS")
 
 

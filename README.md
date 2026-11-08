@@ -190,3 +190,18 @@ resources. Source provenance and immutable binary fingerprints are recorded in
 The build integration follows the product/board-file pattern used by standalone
 ROM features such as [ProtonAOSP ElmyraService](https://github.com/ProtonAOSP/android_packages_apps_ElmyraService)
 and [Lunaris Dolby](https://github.com/tranQuila-Project/vendor_lunaris_dolby).
+
+## Google Play Bridge updates
+
+The HeckerOS GApps profile ships the original Google-signed
+`1.0.254391180.stub` (version code 3), extracted from Google's Pixel 4
+`flame-tp1a.221005.002.b2` factory product image. Play supplies the full Bridge.
+The native OsloFeedback plugin and Hecker Motion Island remain separate.
+The APK is imported presigned and preprocessed so its certificate is unchanged.
+
+APK SHA-256: `d8b3b81758f9d308a68a8ff88e3811c1caadc932b7998982138d84f10ca57c05`.
+Google signer SHA-256: `4fa71b2d890e657bbe02ed7511eb7bf35dd78b27aa9ecd28666156f524fee6f3`.
+The original APK signature was verified with Android's ApkVerifier.
+
+Thanks to [Natxus0898](https://github.com/Natxus0898/hecker_os) for identifying
+the Play update signing mismatch and the stock-stub solution.
