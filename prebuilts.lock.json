@@ -11,13 +11,12 @@
       "git_blob": "4f4c4a91e5f73ae7c24a8d2c1912fda239a50adc"
     },
     {
-      "repository": "its-hecker/infinity_cnb_proprietary_vendor_google_coral",
-      "revision": "211e454a5809b98fb85e883ace545fbdb9ba939d",
-      "path": "proprietary/product/app/MotionSenseBridge/MotionSenseBridge.apk",
+      "repository": "its-hecker/floral-motionsense-plugin",
+      "revision": "96f41ce74613a57fa99886eea4ea205d53b3f6bc",
+      "path": "prebuilts/MotionSenseBridgeStub.apk",
       "destination": "proprietary/product/app/MotionSenseBridge/MotionSenseBridge.apk",
-      "sha256": "ba8a654db0ae508f923c0ab130771ef9fb3a1d8ad788738abbc6afd50099b6b1",
-      "size": 89774,
-      "git_blob": "1e3825c58ec3b8e054b3cc733198f6b4a40e8724"
+      "sha256": "d8b3b81758f9d308a68a8ff88e3811c1caadc932b7998982138d84f10ca57c05",
+      "size": 16797
     }
   ]
 }
